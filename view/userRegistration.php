@@ -78,24 +78,24 @@ $(document).ready(function() {
 
 <div id="header-wrapper">
 	<header id="header" class="5grid-layout">
-
+		
 		<table width="97%" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;width:96% ;">
 		<tr><td valign="bottom" align="left" style="overflow:hidden;"width="46%"><div class="headerLink">
                     <img src="../images/Majorlogo.png" width="300" height="88" alt="UCapture"/>  </div></td>
-
+		
 		<td  align="right" style="overflow:hidden;vertical-align:top"width="50%"><br/>
 		<span class="greencurrent">MY ACCOUNT</span>
 <br/><br/><br/>
 <span style="padding-right:200px;">
 <a class="headerMenu" href="../index.php">HOME</a>
 <a class="headerMenu" href="#">SHOP</a>
-<a class="headerMenuCurrent" href="#">SEARCH</a><input type="text" class="searchtextbox" value-"" name=""/>
-</span>
+<a class="search_label" href="#">SEARCH</a><input type="text" class="searchtextbox" value-"" name=""/>
+</span> 
 
 		</td></tr>
-
+		
 		</table>
-
+		
 	</header>
 </div>
 <div id="wrapper">
@@ -103,23 +103,51 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="8u mobileUI-main-content">
 				<section id="pboxregisterleft">
-
-
+				
+				
 					<div id="tabs-container">
     <ul class="tabs-menu">
-        <li class="current"><a href="#tab-1"> <span style="color:#fff;">U</span>CAPTURE REGISTRATION</a></li>
+        <li ><a href="#tab-1"> <span style="color:#fff;">U</span>CAPTURE REGISTRATION</a></li>
+        
+    </ul><br/>
 
-    </ul>
+    <!-- display errors --->
+                        <?php
+                        if(isset($_SESSION['require']) && count($_SESSION['require'])>0)
+                        {
+                            echo '<br/><br/><div style="padding: 10px;border: solid 1px red;background-color: red;">
+                            <p><strong>Oh snap! Change a few things up and try submitting again.</strong></p>';
+                            foreach($_SESSION['require'] as $key=>$value)
+                                echo '<p>'.$value.'.</p>';
+                            echo '</div>';
+                        }
+                        if(isset($_SESSION['success']))
+                        {
+                            echo '<br/><br/><div style="padding: 10px;border: solid 1px greenyellow;background-color: green;">';
+                            echo '<p>'.$_SESSION['success'].'.</p>';
+                            echo '</div>';
+                        }
+                        ?>
+
+
+    <!--end Display --->
+
+
+
     <div class="tab">
         <div id="tab-1" class="tab-content">
         <div id="content-4" class="contentscrollbar">
-<form class="form-horizontal" action="../services/updateuser.php" method="POST" enctype="multipart/form-data">
+<form class="form-horizontal" action="../services/updateuser.php" method="POST" ng-app="register" novalidate>
             <table width="660px" cellpadding="0"cellspacing="0" border="0" class="table" >
-
+                <?php
+                if(!isset($_SESSION['values']))
+                {
+                ?>
             <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">FIRST NAME</span></td>
-            <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="firstname"/></td>
+            <td width="32%" style="padding-bottom:10px;" value="" name="firstname"/><input type="text" class="txtbx" value="" name="firstname"/></td>
            </tr>
                 <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">LAST NAME</span></td>
+
                     <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="lastname"/></td>
                 </tr>
                 <tr class="tr" >
@@ -146,23 +174,80 @@ $(document).ready(function() {
             <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">DATE OF BIRTH</span></td>
                 <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="dob" id="datepicker"/></td>
                </tr>
-                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><!--<span style="color:#FFF;font-size:17px; ">IMAGE</span>--></td>
-                    <td width="32%" style="padding-bottom:10px;"><input type="file" accept="image/*" class="file-upload" value="" name="userImage" id="userimage" /></td>
-                </tr>
+                    <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><!--<span style="color:#FFF;font-size:17px; ">IMAGE</span>--></td>
+                        <td width="32%" style="padding-bottom:10px;">
+                            <input type="file" accept="image/*" class="file-upload" value="" name="userImage" id="userimage" /></td>
+                    </tr>
             <tr class="tr" ><td width="32%" style="padding-top:20px;padding-right:20px;" align="right"><span style="color:#FFF;font-size:17px; ">
                         <input type="submit" value="REGISTER" class="submit_btn"/>
                     </span></td>
             <td width="32%" style="padding-top:20px;"><input type="reset" value="RESET" class="submit_btn"/></td>
             </tr>
+                <?php
+                }
+            else
+                {
+                ?>
+                <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">FIRST NAME</span></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx"
+                        <?php
+                            valid_check('firstname');
+                        ?>
+                        value="<?php echo $_SESSION['values']['firstname']; ?>" name="firstname"/></td>
+                </tr>
+                <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">LAST NAME</span></td>
+
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['lastname']; ?>" name="lastname"/></td>
+                </tr>
+                <tr class="tr" >
+                    <td width="32%" style="padding-bottom:10px;" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">USER NAME</span></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['username']; ?>" name="username"/></td>
+                </tr>
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">PASSWORD</span></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="password" class="txtbx" value="" name="password"/></td>
+                </tr>
+                <!-- <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">CONFIRM PASSWORD</span></td>
+                     <td width="32%" style="padding-bottom:10px;"><input type="password" class="txtbx" value="" /></td>
+                 </tr>-->
+
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">EMAIL</span></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['email']; ?>" name="email" /></td>
+                </tr>
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">PHONE</span></td>
+                    <td width="32%" style="padding-bottom:10px;">
+                        <input type="text" class="txtbx" value="<?php echo $_SESSION['values']['mobile']; ?>" name="mobile" /></td>
+                </tr>
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">ADDRESS</span></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['address']; ?>" name="address"/></td>
+                </tr>
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">DATE OF BIRTH</span></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['dob']; ?>" name="dob" id="datepicker"/></td>
+                </tr>
+                    <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><!--<span style="color:#FFF;font-size:17px; ">IMAGE</span>--></td>
+                        <td width="32%" style="padding-bottom:10px;">
+                            <input type="file" accept="image/*" class="file-upload" value="" name="userImage" id="userimage" /></td>
+                    </tr>
+                <tr class="tr" ><td width="32%" style="padding-top:20px;padding-right:20px;" align="right"><span style="color:#FFF;font-size:17px; ">
+                        <input type="submit" value="REGISTER" class="submit_btn"/>
+                    </span></td>
+                    <td width="32%" style="padding-top:20px;"><input type="reset" value="RESET" class="submit_btn"/></td>
+                </tr>
+                <?php
+
+                }?>
+
+
+
+
 
             </table>
 </form>
        </div> </div>
-
-
+        
+        
     </div>
 </div>
-
+					
 					</section>
 			</div>
 			<div class="4u mobileUI-main-content">
@@ -170,26 +255,21 @@ $(document).ready(function() {
 					<span style="color:#00ff00;font-size:18px;line-height:5px;"><br/><span style="color:#fff;">U</span>CAPTURE AVATAR</span><br/>
 					<br/><br/>
                     <img src="../images/avatar.png" class="profile-pic" id="upload-button"/>
-                   <BR/>
+					<BR/>
 					<span style="color:#00ff00;font-size:18px;">CHOOSE IMAGE TO UPLOAD</span>
 					<br/><br/><br/>
-					<!-- <table width="460px">
-            <tr><td width="50%" style="padding-bottom:10px;font-size:15px;color:#FFF;">
-            JOHN SMITH
-            </td><td width="50%" style="padding-bottom:10px;font-size:15px;color:#00ff00;">8</td></tr>
-            <tr><td width="50%" style="padding-bottom:10px;font-size:15px;color:#FFF;">COURTNEY CARL
-</td><td width="50%" style="padding-bottom:10px;font-size:15px;color:#00ff00;">56</td></tr>
-            <tr><td width="50%" style="padding-bottom:10px;font-size:15px;color:#FFF;">DAVID SEELIG
-</td><td width="50%" style="padding-bottom:10px;font-size:15px;color:#00ff00;">3</td></tr>
-            <tr><td width="50%" style="padding-bottom:10px;font-size:15px;color:#FFF;">KEVIN SARVER
-</td><td width="50%" style="padding-bottom:10px;font-size:15px;color:#00ff00;">10</td></tr>
-           
-            </table> -->
 					</section>
 			</div>
 		</div>
 	</div>
 </div>
+<?php
+unset($_SESSION['require']);
+unset($_SESSION['values']);
+unset($_SESSION['success']);
+?>
+
+<br/><br/><br>
 
 <div class="5grid-layout" id="copyright">
 	<div class="row">
@@ -198,20 +278,22 @@ $(document).ready(function() {
 			<span class="copyrightfontdiv">&copy; INFO @ <a href="#">UCAPTURE.COM </a></span>
 				<p> <a href="#"><img src="../images/smedia1.png"/></a>
 				<a href="#"><img src="../images/smedia2.png"/></a>
-				<a href="#"><img src="../images/smedia3.png"/></a>
+				<!--<a href="#"><img src="../images/smedia3.png"/></a>
 				<a href="#"><img src="../images/smedia4.png"/></a>
 				<a href="#"><img src="../images/smedia5.png"/></a>
 				<a href="#"><img src="../images/smedia6.png"/></a>
 				<a href="#"><img src="../images/smedia7.png"/></a>
 				<a href="#"><img src="../images/smedia8.png"/></a>
 				<a href="#"><img src="../images/smedia9.png"/></a>
-				<a href="#"><img src="../images/smedia10.png"/></a>
+				<a href="#"><img src="../images/smedia10.png"/></a>-->
 				<a href="#"><img src="../images/smedia11.png"/></a>
 				 </p>
 			</section>
 		</div>
 	</div>
 </div>
+
+
 <script>
     $(document).ready(function() {
 
@@ -237,6 +319,9 @@ $(document).ready(function() {
             $(".file-upload").click();
         });
     });</script>
+
+
+
 <script src="../js/jquery-1.10.2.js"></script>
 <script src="../js/jquery-ui.js"></script>
 
@@ -245,5 +330,20 @@ $(document).ready(function() {
         $( "#datepicker" ).datepicker();
     });
 </script>
+<script>
+    <?php
+function valid_check($key)
+{
+    if(isset($_SESSION['require'][$key]))
+    {
+        echo 'style="border:2px solid red;"';
+    }
+
+}
+ ?>
+</script>
+
+
+
 </body>
 </html>
