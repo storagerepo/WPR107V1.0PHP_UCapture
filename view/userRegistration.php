@@ -78,11 +78,11 @@ $(document).ready(function() {
 
 <div id="header-wrapper">
 	<header id="header" class="5grid-layout">
-		
+
 		<table width="97%" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;width:96% ;">
 		<tr><td valign="bottom" align="left" style="overflow:hidden;"width="46%"><div class="headerLink">
                     <img src="../images/Majorlogo.png" width="300" height="88" alt="UCapture"/>  </div></td>
-		
+
 		<td  align="right" style="overflow:hidden;vertical-align:top"width="50%"><br/>
 		<span class="greencurrent">MY ACCOUNT</span>
 <br/><br/><br/>
@@ -90,12 +90,12 @@ $(document).ready(function() {
 <a class="headerMenu" href="../index.php">HOME</a>
 <a class="headerMenu" href="#">SHOP</a>
 <a class="headerMenuCurrent" href="#">SEARCH</a><input type="text" class="searchtextbox" value-"" name=""/>
-</span> 
+</span>
 
 		</td></tr>
-		
+
 		</table>
-		
+
 	</header>
 </div>
 <div id="wrapper">
@@ -103,31 +103,21 @@ $(document).ready(function() {
 		<div class="row">
 			<div class="8u mobileUI-main-content">
 				<section id="pboxregisterleft">
-				
-				
+
+
 					<div id="tabs-container">
     <ul class="tabs-menu">
         <li class="current"><a href="#tab-1"> <span style="color:#fff;">U</span>CAPTURE REGISTRATION</a></li>
-        
+
     </ul>
     <div class="tab">
         <div id="tab-1" class="tab-content">
         <div id="content-4" class="contentscrollbar">
-<form class="form-horizontal" action="../services/updateuser.php" method="POST" ng-app="register" novalidate>
+<form class="form-horizontal" action="../services/updateuser.php" method="POST" enctype="multipart/form-data">
             <table width="660px" cellpadding="0"cellspacing="0" border="0" class="table" >
 
             <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">FIRST NAME</span></td>
-            <td width="32%" style="padding-bottom:10px;"><input type="text"
-            <?php
-            if(!isset($_SESSION['error']['require']))
-            {
-            echo "class='txtbx'";
-            }
-            else
-            {
-                echo "class='txtbx_error'";
-            }?>
-            value="" name="firstname"/></td>
+            <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="firstname"/></td>
            </tr>
                 <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">LAST NAME</span></td>
                     <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="lastname"/></td>
@@ -156,30 +146,31 @@ $(document).ready(function() {
             <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">DATE OF BIRTH</span></td>
                 <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="dob" id="datepicker"/></td>
                </tr>
-
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><!--<span style="color:#FFF;font-size:17px; ">IMAGE</span>--></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="file" accept="image/*" class="file-upload" value="" name="userImage" id="userimage" /></td>
+                </tr>
             <tr class="tr" ><td width="32%" style="padding-top:20px;padding-right:20px;" align="right"><span style="color:#FFF;font-size:17px; ">
                         <input type="submit" value="REGISTER" class="submit_btn"/>
                     </span></td>
             <td width="32%" style="padding-top:20px;"><input type="reset" value="RESET" class="submit_btn"/></td>
             </tr>
-            
+
             </table>
 </form>
        </div> </div>
-        
-        
+
+
     </div>
 </div>
-					
+
 					</section>
 			</div>
 			<div class="4u mobileUI-main-content">
 				<section id="pboxregisterright">
 					<span style="color:#00ff00;font-size:18px;line-height:5px;"><br/><span style="color:#fff;">U</span>CAPTURE AVATAR</span><br/>
 					<br/><br/>
-                    <input type="image" src="../images/avatar.png" width="40%" height="200" alt="google" style="margin:0 0 0 55px;outline: none;"/>
-                    <input type="file" id="my_file" style="display: none;" />
-					<BR/>
+                    <img src="../images/avatar.png" class="profile-pic" id="upload-button"/>
+                   <BR/>
 					<span style="color:#00ff00;font-size:18px;">CHOOSE IMAGE TO UPLOAD</span>
 					<br/><br/><br/>
 					<!-- <table width="460px">
@@ -222,8 +213,29 @@ $(document).ready(function() {
 	</div>
 </div>
 <script>
-    $("input[type='image']").click(function() {
-        $("input[id='my_file']").click();
+    $(document).ready(function() {
+
+
+        var readURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.profile-pic').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(".file-upload").on('change', function(){
+            readURL(this);
+        });
+
+        $("#upload-button").on('click', function() {
+            $(".file-upload").click();
+        });
     });</script>
 <script src="../js/jquery-1.10.2.js"></script>
 <script src="../js/jquery-ui.js"></script>

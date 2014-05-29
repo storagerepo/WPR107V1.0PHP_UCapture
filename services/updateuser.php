@@ -11,28 +11,29 @@
 </head>
 <body bgcolor="black"style="">
 <?php
-// echo "<pre>";
-//   print_r($_POST);  exit;
-session_start();
+
 require("db_config.php");
+if(count($_FILES) > 0) {
+if(is_uploaded_file($_FILES['userImage']['tmp_name'])) {
+
+$imgData =addslashes(file_get_contents($_FILES['userImage']['tmp_name']));
+$imageProperties = getimageSize($_FILES['userImage']['tmp_name']);
+/*
+$sql = "INSERT INTO output_images1(imageData)
+	VALUES( )";*/
+}}
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $username = $_POST['username'];
     $password = md5($_POST['password']);
-    $email = "suresh";
+    $email = $_POST['email'];
     $mobile = $_POST['mobile'];
     $address = $_POST['address'];
     $dob = $_POST['dob'];
-echo $firstname;
-if(!isset($_POST['firstname']))
-    $_SESSION['require']['firstname']="Should not blank";
 
 
-//  echo $password; exit;
-if(isset($_SESSION['require']))
-{
 
-    $userdetail ="INSERT INTO tbl_user_registration ( firstname,lastname, username, password,email,mobile,address,dob) VALUES ('".$firstname."', '".$lastname."', '".$username."', '".$password."',  '".$email."',  '".$mobile."', '".$address."', '".$dob."');";
+    $userdetail ="INSERT INTO tbl_user_registration ( firstname,lastname, username, password,email,mobile,address,dob,user_image) VALUES ('".$firstname."', '".$lastname."', '".$username."', '".$password."',  '".$email."',  '".$mobile."', '".$address."', '".$dob."','".$imgData."');";
 $result=$mysqli->query($userdetail);
 if($result){
     echo ("<SCRIPT LANGUAGE='JavaScript'>
@@ -43,9 +44,8 @@ if($result){
        die ('Unable to save .Error updating database: ' . mysql_error());
 
    }
-}
-else
-{
-    header("Location:../view/userRegistration.php");
-}
+
+
+   // header("Location:../view/userRegistration.php");
+
 ?></body></html>
