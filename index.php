@@ -121,8 +121,8 @@ if(isset($_POST['submit'])) {
 		<tr><td  align="left" style="overflow:hidden;"width="46%"><div class="headerLink"><img src="images/Majorlogo.png" width="300" height="88" alt="UCapture"/>  </div></td>
 		
 		<td  align="right" style="overflow:hidden;vertical-align:top"width="50%"><br/><font color="#00ff00">
-		
-		<a href="#login_form" id="login_pop">LOG IN</a>/
+
+                <a href="#login_form" id="login_pop"> LOG IN</a>/
                 <a href="view/userRegistration.php" id="join_pop">SIGN UP</a></font><br/><br/><br/>
                 
 		
@@ -135,25 +135,56 @@ if(isset($_POST['submit'])) {
 </span> <br/><br/>	<br/><br/>	<br/><br/>
  <!-- popup form #1 -->
         <a href="#x" class="overlay" id="login_form"></a>
+
         <div class="popup">
+
+
             <h2>Login</h2>
+
+            <form class="form-horizontal" action="services/signin.php" method="POST">
+                <?php
+                if(!isset($_SESSION['values']))
+                {
+                ?>
+
             <div>
                 <label for="login">Login</label>
-                <input type="text" id="login" value="" />
+                <input type="text" id="login"  value="" name="username"/>
             </div>
             <div>
                 <label for="password">Password</label>
-                <input type="password" id="password" value="" />
+                <input type="password" id="password" value="" name="password"/>
             </div><br/>
             <label >Forgot Password</label>
-            <input type="button" value="Log In" class="submit_btn"/>
+            <input type="submit" value="Log In" class="submit_btn"/>
+                <?php
+                }
+                else
+                {
+                ?>
+                    <div>
+                        <label for="login">Login</label>
+                        <input type="text" id="login" value="<?php echo $_SESSION['values']['username']; ?>" name="username"/>
+                    </div>
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" id="password" value="" name="password"/>
+                    </div><br/>
+                    <label >Forgot Password</label>
+                    <input type="submit" value="Log In" class="submit_btn"/>
+
+                <?php
+
+                }?>
+
+                </form>
 			<!-- <input type="button" value="Cancel" class="submit_btn" window.location.href="#close"/>
  -->
             <a class="close" href="#close"></a>
         </div>
             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 		</td></tr>
-		
+
 		</table>
 		<!-- <div class="headerLink"><img src="images/Majorlogo.png" width="300" height="88" alt="UCapture"/></div>
 		<a class="headerMenu" href="#">HOME</a>
@@ -177,7 +208,14 @@ if(isset($_POST['submit'])) {
     <div class="tab">
         <div id="tab-1" class="tab-content">
         <div id="content-4" class="contentscrollbar">
-            <p>UCAPTURE IS A UNIQUE BUYERS NETWORK THAT MAKES IT LOREM IPSUM DOLOR SIT AMET, CONSECTETUER ADIPISCING ELIT, SED DIAM NONUMMY NIBH EUISMOD TINCIDUNT UT LAOREET DOLORE MAGNA ALIQUAM ERAT VOLUTPAT. 
+            <p>
+                <?php
+                if(isset($_SESSION['login_error']))
+                    echo $_SESSION['login_error'];
+
+                ?>
+
+                UCAPTURE IS A UNIQUE BUYERS NETWORK THAT MAKES IT LOREM IPSUM DOLOR SIT AMET, CONSECTETUER ADIPISCING ELIT, SED DIAM NONUMMY NIBH EUISMOD TINCIDUNT UT LAOREET DOLORE MAGNA ALIQUAM ERAT VOLUTPAT.
  </p><br/>
  <p>
 UT WISI ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCI TATION ULLAMCORPER SUSCIPIT LOBORTIS NISL UT ALIQUIP EX EA COMMODO CONSEQUAT. DUIS AUTEM VEL EUM IRIURE DOLOR IN HENDRERIT IN VULPUTATE VELIT ESSE MOLESTIE CONSEQUAT, 
@@ -298,3 +336,16 @@ UT WISI ENIM AD MINIM VENIAM, QUIS NOSTRUD EXERCI TATION ULLAMCORPER SUSCIPIT LO
 
 </body>
 </html>
+<script>
+    <?php
+    unset($_SESSION['login_error']);
+function valid_check($key)
+{
+    if(isset($_SESSION['require'][$key]))
+    {
+        echo 'style="border:2px solid red;"';
+    }
+
+}
+ ?>
+</script>

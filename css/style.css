@@ -843,6 +843,7 @@ a#login_pop:hover, a#join_pop:hover {
 
 
 
+
 .upload-button {
     padding: 4px;
     border: 1px solid black;
@@ -860,5 +861,5 @@ a#login_pop:hover, a#join_pop:hover {
 }
 
 .file-upload {
-    display: none;
+    display:none;
 }

@@ -22,7 +22,7 @@
 		<tr><td valign="bottom" align="left" style="overflow:hidden;"width="46%"><div class="headerLink"><img src="../images/Majorlogo.png" width="300" height="88" alt="UCapture"/>  </div></td>
 		
 		<td  align="right" style="overflow:hidden;vertical-align:top"width="50%"><br/>
-		<span class="greencurrent">MY ACCOUNT</span>
+		<span class="greencurrent">MY ACCOUNT</span>  <a href="../index.php">LOGOUT</a>
 <br/><br/><br/>
 <span style="padding-right:200px;">
 <a class="headerMenu" href="index.html">HOME</a>

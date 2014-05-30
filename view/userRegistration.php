@@ -121,13 +121,25 @@ $(document).ready(function() {
                                 echo '<p>'.$value.'.</p>';
                             echo '</div>';
                         }
+                        if(isset($_SESSION['error']) && count($_SESSION['error'])>0)
+                        {
+                            echo '<br/><br/><div style="padding: 10px;border: solid 1px red;background-color: red;">
+                            <p><strong>Oh snap! Change a few things up and try submitting again.</strong></p>';
+                            foreach($_SESSION['error'] as $key=>$value)
+                                echo '<p>'.$value.'.</p>';
+                            echo '</div>';
+                        }
                         if(isset($_SESSION['success']))
                         {
                             echo '<br/><br/><div style="padding: 10px;border: solid 1px greenyellow;background-color: green;">';
                             echo '<p>'.$_SESSION['success'].'.</p>';
                             echo '</div>';
                         }
-                        ?>
+
+
+                       ?>
+
+
 
 
     <!--end Display --->
@@ -137,7 +149,7 @@ $(document).ready(function() {
     <div class="tab">
         <div id="tab-1" class="tab-content">
         <div id="content-4" class="contentscrollbar">
-<form class="form-horizontal" action="../services/updateuser.php" method="POST" ng-app="register" novalidate>
+<form enctype="multipart/form-data" class="form-horizontal" action="../services/updateuser.php" method="POST" ng-app="register" novalidate>
             <table width="660px" cellpadding="0"cellspacing="0" border="0" class="table" >
                 <?php
                 if(!isset($_SESSION['values']))
@@ -166,10 +178,10 @@ $(document).ready(function() {
             </tr>
                 <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">PHONE</span></td>
                     <td width="32%" style="padding-bottom:10px;">
-                        <input type="text" class="txtbx" value=""name="mobile" /></td>
+                        <input type="text" style="font-size: 15px;" class="txtbx" value=""name="mobile" /></td>
                 </tr>
             <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">ADDRESS</span></td>
-            <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="address"/></td>
+            <td width="32%" style="padding-bottom:10px;"><textarea class="txtbx" value="" name="address"></textarea></td>
            </tr>
             <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">DATE OF BIRTH</span></td>
                 <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="" name="dob" id="datepicker"/></td>
@@ -197,31 +209,31 @@ $(document).ready(function() {
                 </tr>
                 <tr class="tr" ><td> <span style="color:#FFF;font-size:17px; ">LAST NAME</span></td>
 
-                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['lastname']; ?>" name="lastname"/></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" <?php valid_check('lastname'); ?> value="<?php echo $_SESSION['values']['lastname']; ?>" name="lastname"/></td>
                 </tr>
                 <tr class="tr" >
                     <td width="32%" style="padding-bottom:10px;" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">USER NAME</span></td>
-                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['username']; ?>" name="username"/></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" <?php valid_check('lastname'); ?>  value="<?php echo $_SESSION['values']['username']; ?>" name="username"/></td>
                 </tr>
                 <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">PASSWORD</span></td>
-                    <td width="32%" style="padding-bottom:10px;"><input type="password" class="txtbx" value="" name="password"/></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="password" class="txtbx" <?php valid_check('lastname'); ?> value="" name="password"/></td>
                 </tr>
-                <!-- <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">CONFIRM PASSWORD</span></td>
-                     <td width="32%" style="padding-bottom:10px;"><input type="password" class="txtbx" value="" /></td>
-                 </tr>-->
+                <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">CONFIRM PASSWORD</span></td>
+                     <td width="32%" style="padding-bottom:10px;"><input type="password" class="txtbx" <?php valid_check('lastname'); ?> value="" name="confirm_password"/></td>
+                 </tr>
 
                 <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">EMAIL</span></td>
-                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['email']; ?>" name="email" /></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" <?php valid_check('lastname'); ?> value="<?php echo $_SESSION['values']['email']; ?>" name="email" /></td>
                 </tr>
                 <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">PHONE</span></td>
                     <td width="32%" style="padding-bottom:10px;">
-                        <input type="text" class="txtbx" value="<?php echo $_SESSION['values']['mobile']; ?>" name="mobile" /></td>
+                        <input type="text" class="txtbx" <?php valid_check('lastname'); ?> value="<?php echo $_SESSION['values']['mobile']; ?>" name="mobile" /></td>
                 </tr>
                 <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">ADDRESS</span></td>
-                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['address']; ?>" name="address"/></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" <?php valid_check('lastname'); ?> value="<?php echo $_SESSION['values']['address']; ?>" name="address"/></td>
                 </tr>
                 <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><span style="color:#FFF;font-size:17px; ">DATE OF BIRTH</span></td>
-                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" value="<?php echo $_SESSION['values']['dob']; ?>" name="dob" id="datepicker"/></td>
+                    <td width="32%" style="padding-bottom:10px;"><input type="text" class="txtbx" <?php valid_check('lastname'); ?> value="<?php echo $_SESSION['values']['dob']; ?>" name="dob" id="datepicker"/></td>
                 </tr>
                     <tr class="tr" ><td width="32%" style="padding-bottom:10px;"><!--<span style="color:#FFF;font-size:17px; ">IMAGE</span>--></td>
                         <td width="32%" style="padding-bottom:10px;">
@@ -267,6 +279,7 @@ $(document).ready(function() {
 unset($_SESSION['require']);
 unset($_SESSION['values']);
 unset($_SESSION['success']);
+unset($_SESSION['error']);
 ?>
 
 <br/><br/><br>
