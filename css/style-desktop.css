@@ -172,9 +172,10 @@
 #pboxregisterleft {
     padding: 0em 0em 0em 3em;
     width:600px;
+    overflow-x: hidden;
     /* border:2px solid blue;*/
     max-height:700px;
-    overflow:auto;
+    overflow-y:auto;
     color:#fff;
 }
 
@@ -499,6 +500,7 @@ y-axis
     width: 100%;
     padding: 0px;
     display: none;
+
 }
 
 #tab-1 {

